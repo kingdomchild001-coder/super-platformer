@@ -92,21 +92,23 @@
             justify-content: center;
             align-items: center;
             border-radius: 12px;
-            z-index: 50;
+            z-index: 150;
             text-align: center;
             box-sizing: border-box;
             padding: 20px;
         }
-        .btn {
+        #start-btn {
             background: #ff006e;
             color: white;
             border: none;
-            padding: 10px 20px;
-            font-size: 14px;
+            padding: 15px 30px;
+            font-size: 18px;
             font-weight: bold;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 15px;
+            z-index: 200;
+            box-shadow: 0 4px 15px rgba(255, 0, 110, 0.5);
         }
         .hidden { display: none !important; }
         #shop-grid {
@@ -195,7 +197,7 @@
     <div id="screen-start" class="screen-overlay">
         <h1 style="color: #ff006e; margin: 0; font-size: 24px;">ULTIMATE PLATFORMER</h1>
         <p style="color: #aaa; font-size: 14px; margin: 5px 0;">3 Tutorials • 111 Campaign Levels • Level Editor</p>
-        <button class="btn" onclick="startGame()">Click to Start Engine & Play</button>
+        <button id="start-btn">Click to Start Engine & Play</button>
     </div>
 
     <div id="screen-shop" class="screen-overlay hidden">
@@ -207,19 +209,19 @@
             <div class="shop-item" id="shop-skingreen" onclick="buyUpgrade('skingreen', 10)"><h3>🎨 Green Skin</h3><strong style="color: #ffb703;">Cost: 🪙 10</strong></div>
             <div class="shop-item" id="shop-skinpurple" onclick="buyUpgrade('skinpurple', 25)"><h3>✨ Purple Trail</h3><strong style="color: #ffb703;">Cost: 🪙 25</strong></div>
         </div>
-        <button class="btn" style="background: #333;" onclick="closeShop()">Next Stage</button>
+        <button id="shop-close-btn" class="btn" style="background: #333;">Next Stage</button>
     </div>
 
     <div id="screen-gameover" class="screen-overlay hidden">
         <h1 style="color: #d90429; margin: 0;">GAME OVER</h1>
         <p style="color: #aaa; margin: 5px 0;">Reserves depleted. Level layout reset.</p>
-        <button class="btn" onclick="retryLevel()">Retry Stage</button>
+        <button id="retry-btn" class="btn">Retry Stage</button>
     </div>
 
     <div id="screen-victory" class="screen-overlay hidden">
         <h1 style="color: #38b000; margin: 0;">VICTORY!</h1>
         <p id="victory-time" style="color: #00f0ff; font-weight: bold; margin: 5px 0;"></p>
-        <button class="btn" onclick="enterEndlessMode()">Launch Endless Mode (Level 15)</button>
+        <button id="endless-btn" class="btn">Launch Endless Mode (Level 15)</button>
     </div>
 
 <script>
@@ -232,7 +234,7 @@ if (isMobile) {
     document.getElementById("mobile-controls").style.display = "flex";
 }
 
-// Simulated Input Flags for Touch Integration
+// Input flags
 const touchInputs = { left: false, right: false, jump: false };
 
 function bindTouch(id, action) {
@@ -241,4 +243,3 @@ function bindTouch(id, action) {
     el.addEventListener("touchend", (e) => { e.preventDefault(); if(action) touchInputs[action] = false; });
 }
 bindTouch("btn-left", "left");
-bindTouch("btn-right", "right");
